@@ -6,4 +6,8 @@
   <version>1.0-SNAPSHOT</version>
   <name>Archetype - MUSE</name>
   <url>http://maven.apache.org</url>
+  <packaging>pom</packaging>
+  <modules>
+    <module>desktop</module>
+  </modules>
 </project>
