@@ -2,7 +2,8 @@ module com.muse.desktop {
     requires javafx.controls;
     requires javafx.fxml;
 
-
     opens com.muse.desktop to javafx.fxml;
     exports com.muse.desktop;
+    opens com.muse.desktop.controller to javafx.fxml;
+    exports com.muse.desktop.controller;
 }
