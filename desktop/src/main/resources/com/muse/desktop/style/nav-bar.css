@@ -1,0 +1,27 @@
+.nav-bar {
+    -fx-background-color: #434343;
+}
+
+.nav-container {
+    -fx-padding: 20px 0;
+    -fx-spacing: 10px;
+}
+
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 15px 25px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+}
+
+.nav-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Jeśli używasz ikon jako Graphic w Buttonie */
+.nav-btn .graphic-container {
+    -fx-padding: 0 20px 0 0;
+}
