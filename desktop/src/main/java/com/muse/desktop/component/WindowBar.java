@@ -1,11 +1,18 @@
 package com.muse.desktop.component;
 
+import com.muse.desktop.MUSE;
 import com.muse.desktop.model.ui.Presentable;
+import com.muse.desktop.util.ButtonFactory;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
 import java.util.Objects;
 
@@ -24,32 +31,58 @@ public class WindowBar extends HBox implements Presentable {
     @Override
     public void initComponents() {
         menuBar = new MenuBar();
-        titleLabel = new Label();
-        closeButton = new Button();
-        maximizeButton = new Button();
-        minimizeButton = new Button();
+        titleLabel = new Label("MUSE");
+        closeButton = ButtonFactory.createButton("", "closeBtn", "Close App", "window-btn");
+        maximizeButton = ButtonFactory.createButton("", "maximizeBtn", "Maximize App", "window-btn");
+        minimizeButton = ButtonFactory.createButton("", "minimizeBtn", "Minimize App", "window-btn");
     }
 
     @Override
     public void setupComponents() {
         final Menu fileMenu = new Menu("File");
         final Menu editMenu = new Menu("Edit");
+        final Menu viewMenu = new Menu("View");
+        final Menu addMenu = new Menu("Add");
+        final Menu formatMenu = new Menu("Format");
+        final Menu toolsMenu = new Menu("Tools");
+        final Menu helpMenu = new Menu("Help");
 
         menuBar.getMenus().addAll(
                 fileMenu,
-                editMenu
+                editMenu,
+                viewMenu,
+                addMenu,
+                formatMenu,
+                toolsMenu,
+                helpMenu
         );
+
+        ButtonFactory.addIcon(minimizeButton, FontAwesomeSolid.WINDOW_MINIMIZE, 14, Color.rgb(41, 41, 41));
+        ButtonFactory.addIcon(maximizeButton, FontAwesomeSolid.WINDOW_MAXIMIZE, 14, Color.rgb(41, 41, 41));
+        ButtonFactory.addIcon(closeButton, FontAwesomeSolid.WINDOW_CLOSE, 14, Color.rgb(41, 41, 41));
     }
 
     @Override
     public void setupStyle() {
         this.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/muse/desktop/style/window-bar.css")).toExternalForm());
         this.getStyleClass().add("window-bar");
+
+        titleLabel.getStyleClass().add("window-title");
     }
 
     @Override
     public void setupLayout() {
+        final HBox windowButtons = new HBox(10, minimizeButton, maximizeButton, closeButton);
+        windowButtons.setPadding(new Insets(10));
 
+        this.setSpacing(5);
+        this.getChildren().addAll(
+                menuBar,
+                createSpacer(),
+                titleLabel,
+                createSpacer(),
+                windowButtons
+        );
     }
 
     @Override
@@ -59,6 +92,14 @@ public class WindowBar extends HBox implements Presentable {
 
     @Override
     public void setupEventHandlers() {
+        MUSE.applyApplicationMovement(this);
+        closeButton.setOnAction(actionEvent -> MUSE.close());
+    }
 
+    private Region createSpacer() {
+        Region region = new Region();
+        HBox.setHgrow(region, Priority.ALWAYS);
+
+        return region;
     }
 }
