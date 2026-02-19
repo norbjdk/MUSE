@@ -1,5 +1,7 @@
 package com.muse.desktop.controller;
 
+import com.muse.desktop.component.NavBar;
+import com.muse.desktop.component.WindowBar;
 import com.muse.desktop.model.ui.Presentable;
 import com.muse.desktop.util.FXMLUtil;
 import javafx.fxml.FXML;
@@ -15,8 +17,10 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable, Presentable {
     @FXML
-    private BorderPane  rootContainer;
-    private VBox        headerContainer;
+    private BorderPane rootContainer;
+    private VBox headerContainer;
+    private WindowBar windowBar;
+    private NavBar navBar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -27,16 +31,18 @@ public class MainController implements Initializable, Presentable {
     @Override
     public void initComponents() {
         headerContainer = new VBox();
+        windowBar = new WindowBar();
+        navBar = new NavBar();
     }
 
     @Override
     public void setupComponents() {
         try {
             headerContainer.getChildren().addAll(
-                    FXMLUtil.loadFXML("windowbar"),
-                    FXMLUtil.loadFXML("profilecard")
+                    windowBar,
+                    navBar
             );
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
