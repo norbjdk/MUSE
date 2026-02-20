@@ -1,0 +1,45 @@
+.side-bar {
+    -fx-background-color: transparent;
+}
+
+.profile-bar {
+    -fx-background-color: #d5d5d5;
+    -fx-border-color: #858585;
+    -fx-border-width: 0px 0 0px 1px;
+}
+
+.profile-btn {
+    -fx-background-color: #151515;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-padding: 5px 9px;
+    -fx-cursor: hand;
+}
+
+.profile-username {
+    -fx-font-family: "Roboto Thin";
+    -fx-font-weight: 700;
+    -fx-font-size: 15px;
+}
+
+.profile-status {
+    -fx-text-fill: green;
+    -fx-font-family: "Roboto Light";
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+}
+
+.friends-list {
+    -fx-background-color: #d5d5d5;
+    -fx-border-color: #858585;
+    -fx-border-width: 0px 0 0px 1px;
+}
+
+.friend-card {
+    -fx-background-color: #bfbfbf;
+    -fx-border-color: #858585;
+    -fx-border-width: 1px 0 1px 0;
+    -fx-spacing: 5px;
+    -fx-alignment: center;
+    -fx-padding: 4px;
+}
