@@ -1,0 +1,13 @@
+.home-view {
+    -fx-vbar-policy: always;
+    -fx-pannable: true;
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+}
+
+.home-header {
+    -fx-font-family: "Roboto Thin";
+    -fx-font-weight: 700;
+    -fx-font-size: 28px;
+    -fx-padding: 50px;
+}

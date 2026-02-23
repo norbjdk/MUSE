@@ -4,6 +4,7 @@ import com.muse.desktop.MUSE;
 import com.muse.desktop.model.ui.Presentable;
 import com.muse.desktop.util.ButtonFactory;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -11,6 +12,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
@@ -25,7 +27,6 @@ public class WindowBar extends HBox implements Presentable {
 
     public WindowBar() {
         present();
-        System.out.println("[MUSE] Initialized WindowBar");
     }
 
     @Override
@@ -73,8 +74,8 @@ public class WindowBar extends HBox implements Presentable {
     @Override
     public void setupLayout() {
         final HBox windowButtons = new HBox(10, minimizeButton, maximizeButton, closeButton);
-        windowButtons.setPadding(new Insets(10));
 
+        this.setAlignment(Pos.TOP_CENTER);
         this.setSpacing(5);
         this.getChildren().addAll(
                 menuBar,
