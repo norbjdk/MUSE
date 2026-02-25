@@ -19,6 +19,10 @@ public class MUSE extends Application {
 
     private static Stage stage;
 
+    @Override public void init() {
+        System.out.println("[MUSE] Initialized Logic");
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
@@ -29,6 +33,7 @@ public class MUSE extends Application {
         stage.initStyle(StageStyle.TRANSPARENT);
         scene.setFill(Color.TRANSPARENT);
         stage.show();
+        System.out.println("[MUSE] Initialized Graphics");
     }
 
     public static void main(String [] args) {
