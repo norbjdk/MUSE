@@ -31,6 +31,9 @@ public class HomeView extends ScrollPane implements Presentable, ViewContainer {
         contentContainer = new VBox();
         headerLabel = new Label("Welcome to MUSE");
         heroContainer = new HBox();
+        heroContainer = new AnchorPane();
+        heroImageContainer = new StackPane();
+        encourageContainer = new VBox();
     }
 
     @Override
@@ -43,6 +46,8 @@ public class HomeView extends ScrollPane implements Presentable, ViewContainer {
 
         // Hero Section
         final StackPane heroImageContainer = new StackPane();
+        // Hero Section
+
         final Image heroImage = new Image(Objects.requireNonNull(getClass().getResource("/com/muse/desktop/assets/hero.jpg")).toExternalForm());
         final Rectangle heroImageView = new Rectangle();
 

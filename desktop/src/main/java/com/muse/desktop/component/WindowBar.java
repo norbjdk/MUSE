@@ -75,6 +75,7 @@ public class WindowBar extends HBox implements Presentable {
     public void setupLayout() {
         final HBox windowButtons = new HBox(1, minimizeButton, maximizeButton, closeButton);
         windowButtons.setStyle("-fx-padding: 4px 4px 0px 0px");
+        final HBox windowButtons = new HBox(10, minimizeButton, maximizeButton, closeButton);
 
         this.setAlignment(Pos.TOP_CENTER);
         this.setSpacing(5);
