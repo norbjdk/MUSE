@@ -1,9 +1,7 @@
 .menu-bar {
-    -fx-background-color: #d5d5d5;
+    -fx-background-color: transparent;
     -fx-padding: 3px 6px;
     -fx-spacing: 10px;
-    -fx-border-color: #bbbbbb;
-    -fx-border-width: 0 1px 1px 0;
 }
 
 .menu-bar .container {
@@ -14,7 +12,7 @@
 .menu-bar .menu {
     -fx-background-color: transparent;
     -fx-padding: 6px 10px;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #6b6358;
     -fx-font-size: 13px;
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-weight: 500;
@@ -32,25 +30,28 @@
 }
 
 .menu-bar .menu .label {
-    -fx-text-fill: #292929;
+    -fx-text-fill: #6b6358;
 }
 
 .menu-bar .menu:hover .label,
 .menu-bar .menu:showing .label {
-    -fx-text-fill: #151515;
+    -fx-text-fill: #6b6358;
 }
 
 .window-btn {
     -fx-background-color: transparent;
-    -fx-border-color: #444;
     -fx-padding: 8px 10px;
     -fx-cursor: hand;
-    -fx-border-radius: 50%;
+}
+
+.window-btn:hover {
+    -fx-background-color: #cdcdc8;
+    -fx-cursor: hand;
 }
 
 .window-title {
-    -fx-text-fill: #292929;
-    -fx-font-family: "Roboto Thin";
+    -fx-text-fill: #8b6f3e;
+    -fx-font-family: "David Libre";
     -fx-font-size: 20px;
     -fx-font-weight: 800;
     -fx-padding: 10px 2px;

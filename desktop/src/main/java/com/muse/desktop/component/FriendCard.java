@@ -2,6 +2,7 @@ package com.muse.desktop.component;
 
 import com.muse.desktop.model.ui.Presentable;
 import com.muse.desktop.util.ButtonFactory;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,6 +24,7 @@ public class FriendCard extends GridPane implements Presentable {
     private Label statusLabel;
     private Circle pictureView;
     private Button addFriend;
+    private StackPane pictureContainer;
 
     public FriendCard(String username, String status, String picturePath) {
         this.username = username;
@@ -36,7 +38,8 @@ public class FriendCard extends GridPane implements Presentable {
     public void initComponents() {
         usernameLabel = new Label(username);
         statusLabel = new Label(status);
-        pictureView = new Circle(25);
+        pictureView = new Circle(18);
+        pictureContainer = new StackPane();
         addFriend = ButtonFactory.createButton("", "add-friend", "Add User to Project", "add-btn");
     }
 
@@ -48,6 +51,9 @@ public class FriendCard extends GridPane implements Presentable {
         }
 
         ButtonFactory.addIcon(addFriend, FontAwesomeSolid.HANDSHAKE, 14, Color.rgb(15, 15, 15));
+
+        pictureContainer.getChildren().add(pictureView);
+        pictureContainer.setPadding(new Insets(18));
     }
 
     @Override
@@ -67,7 +73,7 @@ public class FriendCard extends GridPane implements Presentable {
 
         this.getColumnConstraints().addAll(col1, col2, col3);
 
-        add(pictureView, 0, 0);
+        add(pictureContainer, 0, 0);
         add(new VBox(5, usernameLabel, statusLabel), 1, 0);
         add(addFriend, 2, 0);
     }

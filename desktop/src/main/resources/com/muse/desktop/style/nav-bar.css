@@ -1,6 +1,6 @@
 .nav-bar {
-    -fx-background-color: #bfbfbf;
-    -fx-border-color: #858585;
+    -fx-background-color: #e8e4dd;
+    -fx-border-color: rgba(0,0,0,0.08);
     -fx-border-width: 1px 0 1px 0;
 }
 
@@ -11,7 +11,7 @@
 
 .nav-btn {
     -fx-background-color: transparent;
-    -fx-text-fill: black;
+    -fx-text-fill: #554e49;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 15px 25px;
     -fx-font-size: 14px;

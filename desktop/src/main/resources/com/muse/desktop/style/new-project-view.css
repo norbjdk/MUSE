@@ -1,0 +1,118 @@
+.new-project-view {
+    -fx-hgap: 50px;
+    -fx-alignment: center;
+    -fx-orientation: horizontal;
+    -fx-vgap: 50px;
+}
+
+.new-project-view .data-form,
+.new-project-view .props-form,
+.new-project-view .template-form{
+    -fx-padding: 26px;
+    -fx-background-color: whitesmoke;
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(0,0,0,0.08);
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-vgap: 14px;
+    -fx-hgap: 14px;
+}
+
+.new-project-view .template-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-font-family: "Roboto Light";
+    -fx-text-fill: #2b2928;
+}
+
+.new-project-view .data-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-font-family: "Roboto Light";
+    -fx-text-fill: #2b2928;
+}
+
+.new-project-view .data-input {
+    -fx-min-width: 250px;
+    -fx-background-color: whitesmoke;
+    -fx-border-color: rgba(0,0,0,0.08);
+    -fx-font-size: 14px;
+    -fx-border-width: 2px;
+    -fx-text-fill: #2b2928;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px 4px;
+}
+
+.list-view {
+    -fx-max-height: 300px;
+    -fx-max-width: 150px;
+    -fx-background-color: whitesmoke;
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(97, 95, 93, 0.37);
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-padding: 0;
+}
+
+.list-view .viewport {
+    -fx-background-color: transparent;
+}
+
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 10px 15px;
+    -fx-border-color: transparent transparent rgba(97, 95, 93, 0.37) transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.list-view .list-cell:filled {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2b2928;
+    -fx-font-size: 14px;
+}
+
+.list-view .list-cell:filled:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-cursor: hand;
+}
+
+.list-view .list-cell:filled:selected {
+    -fx-background-color: whitesmoke;
+    -fx-text-fill: #2b2928;
+}
+
+.list-view .list-cell:filled:selected:hover {
+    -fx-background-color: whitesmoke;
+}
+
+.list-view .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.list-view:focused .list-cell:filled:selected {
+    -fx-background-color: whitesmoke;
+}
+
+.list-view:focused {
+    -fx-background-color: whitesmoke;
+    -fx-background-insets: 0;
+}
+
+.create-project-button {
+    -fx-font-size: 13px;
+    -fx-font-family: "Roboto Light";
+    -fx-padding: 8px 16px;
+    -fx-background-color: #e3e0e0;
+    -fx-border-width: 1px;
+    -fx-background-radius: 6px;
+    -fx-font-weight: 700;
+    -fx-border-color: rgba(0,0,0,0.08);
+    -fx-text-fill: #1e1e1e;
+    -fx-border-radius: 6px;
+}
+
+.create-project-button:hover {
+    -fx-background-color: #c8c2c2;
+    -fx-cursor: hand;
+}

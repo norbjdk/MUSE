@@ -1,6 +1,10 @@
 package com.muse.desktop.component;
 
+import com.muse.desktop.model.dto.internal.ViewRequest;
+import com.muse.desktop.model.event.ChangeViewRequestedEvent;
 import com.muse.desktop.model.ui.Presentable;
+import com.muse.desktop.model.ui.ViewName;
+import com.muse.desktop.service.EventBus;
 import com.muse.desktop.util.ButtonFactory;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -15,6 +19,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
+import javax.swing.text.View;
 import java.util.Objects;
 
 public class NavBar extends HBox implements Presentable {
@@ -79,7 +84,10 @@ public class NavBar extends HBox implements Presentable {
 
     @Override
     public void setupEventHandlers() {
-
+        homeBtn.setOnAction(actionEvent -> handleHomeButtonClicked());
+        createProjectBtn.setOnAction(actionEvent -> handleNewProjectButtonClicked());
+        collectionBtn.setOnAction(actionEvent -> handleCollectionButtonClicked());
+        settingsBtn.setOnAction(actionEvent -> handleSettingsButtonClicked());
     }
 
     private Region createSpacer() {
@@ -89,4 +97,19 @@ public class NavBar extends HBox implements Presentable {
         return region;
     }
 
+    private void handleHomeButtonClicked() {
+        EventBus.getInstance().publish(new ChangeViewRequestedEvent(new ViewRequest(ViewName.HOME)));
+    }
+
+    private void handleSettingsButtonClicked() {
+        EventBus.getInstance().publish(new ChangeViewRequestedEvent(new ViewRequest(ViewName.SETTINGS)));
+    }
+
+    private void handleCollectionButtonClicked() {
+        EventBus.getInstance().publish(new ChangeViewRequestedEvent(new ViewRequest(ViewName.COLLECTION)));
+    }
+
+    private void handleNewProjectButtonClicked() {
+        EventBus.getInstance().publish(new ChangeViewRequestedEvent(new ViewRequest(ViewName.NEW_PROJECT)));
+    }
 }

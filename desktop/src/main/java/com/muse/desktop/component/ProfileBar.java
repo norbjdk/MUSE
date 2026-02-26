@@ -229,8 +229,6 @@ public class ProfileBar extends GridPane implements Presentable {
     }
 
     public void redraw() {
-        System.out.println("[MUSE] Redrawing ProfileBar");
-
         setupComponents();
 
         updateStatusStyle(status);
