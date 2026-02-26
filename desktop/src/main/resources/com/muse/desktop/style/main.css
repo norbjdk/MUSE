@@ -1,0 +1,8 @@
+.root-container{
+    -fx-background-color: #f0ede8;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-color: #606060;
+    -fx-border-radius: 8px;
+    -fx-padding: 2px;
+}
