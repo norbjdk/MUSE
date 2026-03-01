@@ -1,0 +1,14 @@
+services:
+  database:
+    image: postgres
+    container_name: postgres_db
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: changeMeInProduction
+    volumes:
+      - db_data:/var/lib/postgres
+
+volumes:
+  db_data:
