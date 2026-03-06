@@ -1,5 +1,8 @@
 package com.norbjdk.jmxml.model.music;
 
+import com.norbjdk.jmxml.annotation.DefineNote;
+import com.norbjdk.jmxml.exception.AnnotationException;
+
 public class Note extends MusicModel{
     private Pitch pitch;
     private int duration;
@@ -8,7 +11,22 @@ public class Note extends MusicModel{
     private String stem;
     private int staff;
 
-    public Note() {}
+    public Note() {
+        if (!this.getClass().isAnnotationPresent(DefineNote.class)) {
+            throw new AnnotationException("You need to add @UseNote to class: " + this.getClass().getSimpleName());
+        }
+        DefineNote config = this.getClass().getAnnotation(DefineNote.class);
+
+        this.pitch = new Pitch();
+        this.pitch.setOctave(config.octave());
+        this.pitch.setStep(config.step());
+
+        this.duration = config.duration();
+        this.voice = config.voice();
+        this.half = config.half();
+        this.stem = config.stem();
+        this.staff = config.staff();
+    }
 
     public Pitch getPitch() {
         return pitch;
