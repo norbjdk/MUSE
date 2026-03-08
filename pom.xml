@@ -9,6 +9,5 @@
   <packaging>pom</packaging>
   <modules>
     <module>desktop</module>
-    <module>jmxml</module>
   </modules>
 </project>
