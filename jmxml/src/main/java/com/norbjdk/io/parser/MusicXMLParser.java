@@ -1,11 +1,11 @@
 package com.norbjdk.io.parser;
 
 import com.norbjdk.model.common.MXML;
+import com.norbjdk.model.score.PartList;
+import com.norbjdk.model.score.ScoreInstrument;
+import com.norbjdk.model.score.ScorePart;
 import com.norbjdk.model.score.ScorePartwise;
-import nu.xom.Builder;
-import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.ParsingException;
+import nu.xom.*;
 
 import java.io.*;
 
@@ -45,14 +45,15 @@ public class MusicXMLParser {
             }
         }
 
-        readMetaData(getScorePartwise(), mxmlFile);
+        readMetaData(getScorePartwise());
+        readPartList(getScorePartwise());
 
         return mxmlFile;
     }
 
-    private void readMetaData(final ScorePartwise scorePartwise, File file) {
+    private void readMetaData(final ScorePartwise scorePartwise) {
         try {
-            final Document document = builder.build(file);
+            final Document document = builder.build(mxmlFile);
             final Element root = document.getRootElement();
 
             // Work title area
@@ -74,6 +75,62 @@ public class MusicXMLParser {
                     scorePartwise.setCreator(creator.getValue());
                 }
             }
+
+        } catch (ParsingException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void readPartList(final ScorePartwise scorePartwise) {
+        if (scorePartwise.getPartList() == null) {
+            scorePartwise.setPartList(new PartList());
+        }
+
+        try {
+            final Document document = builder.build(mxmlFile);
+            final Element root = document.getRootElement();
+
+            final Element partList = root.getFirstChildElement("part-list");
+            if (isNullElement(partList)) {
+                final Elements scoreParts = partList.getChildElements();
+                if (scoreParts.size() <= 0) return;
+
+                for (Element element : scoreParts) {
+                    final ScorePart scorePart = new ScorePart();
+                    final ScoreInstrument scoreInstrument = new ScoreInstrument();
+
+                    // Part name area
+
+                    final Element partName = element.getFirstChildElement("part-name");
+                    if (isNullElement(partName)) {
+                        scorePart.setPartName(partName.getValue());
+                    }
+
+                    // Part abbreviation area
+
+                    final Element partAbbreviation = element.getFirstChildElement("part-abbreviation");
+                    if (isNullElement(partAbbreviation)) {
+                        scorePart.setPartAbbreviation(partAbbreviation.getValue());
+                    }
+
+                    // Score instrument area
+
+                    final Element scoreInstr = element.getFirstChildElement("score-instrument");
+                    if (isNullElement(scoreInstr)) {
+                        final Element instrumentName = scoreInstr.getFirstChildElement("instrument-name");
+                        final Element instrumentSound = scoreInstr.getFirstChildElement("instrument-sound");
+
+                        if (isNullElement(instrumentName) && isNullElement(instrumentSound)) {
+                            scoreInstrument.setInstrumentName(instrumentName.getValue());
+                            scoreInstrument.setInstrumentSound(instrumentSound.getValue());
+                        }
+                    }
+
+                    scorePart.setScoreInstrument(scoreInstrument);
+                    scorePartwise.getPartList().getScoreParts().add(scorePart);
+                }
+            }
+
 
         } catch (ParsingException | IOException e) {
             throw new RuntimeException(e);
