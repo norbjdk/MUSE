@@ -58,9 +58,9 @@ public class MusicXMLParser {
             // Work title area
 
             final Element work = root.getFirstChildElement("work");
-            if (isNullElement(work)) {
+            if (isNotNullElement(work)) {
                 final Element title = work.getFirstChildElement("work-title");
-                if (isNullElement(title)) {
+                if (isNotNullElement(title)) {
                     scorePartwise.setWorkTitle(title.getValue());
                 }
             }
@@ -68,9 +68,9 @@ public class MusicXMLParser {
             // Creator area
 
             final Element identification = root.getFirstChildElement("identification");
-            if (isNullElement(identification)) {
+            if (isNotNullElement(identification)) {
                 final Element creator = identification.getFirstChildElement("creator");
-                if (isNullElement(creator)) {
+                if (isNotNullElement(creator)) {
                     scorePartwise.setCreator(creator.getValue());
                 }
             }
@@ -90,7 +90,7 @@ public class MusicXMLParser {
             final Element root = document.getRootElement();
 
             final Element partList = root.getFirstChildElement("part-list");
-            if (isNullElement(partList)) {
+            if (isNotNullElement(partList)) {
                 final Elements scoreParts = partList.getChildElements();
                 if (scoreParts.size() <= 0) return;
 
@@ -101,25 +101,25 @@ public class MusicXMLParser {
                     // Part name area
 
                     final Element partName = element.getFirstChildElement("part-name");
-                    if (isNullElement(partName)) {
+                    if (isNotNullElement(partName)) {
                         scorePart.setPartName(partName.getValue());
                     }
 
                     // Part abbreviation area
 
                     final Element partAbbreviation = element.getFirstChildElement("part-abbreviation");
-                    if (isNullElement(partAbbreviation)) {
+                    if (isNotNullElement(partAbbreviation)) {
                         scorePart.setPartAbbreviation(partAbbreviation.getValue());
                     }
 
                     // Score instrument area
 
                     final Element scoreInstr = element.getFirstChildElement("score-instrument");
-                    if (isNullElement(scoreInstr)) {
+                    if (isNotNullElement(scoreInstr)) {
                         final Element instrumentName = scoreInstr.getFirstChildElement("instrument-name");
                         final Element instrumentSound = scoreInstr.getFirstChildElement("instrument-sound");
 
-                        if (isNullElement(instrumentName) && isNullElement(instrumentSound)) {
+                        if (isNotNullElement(instrumentName) && isNotNullElement(instrumentSound)) {
                             scoreInstrument.setInstrumentName(instrumentName.getValue());
                             scoreInstrument.setInstrumentSound(instrumentSound.getValue());
                         }
@@ -161,14 +161,12 @@ public class MusicXMLParser {
         }
     }
 
-    private Measure readMeasure(final Element part) {
+    private Measure readMeasure(final Element measure) {
         final Measure result = new Measure();
 
-        final Element measure = part.getFirstChildElement("measure");
-        if (isNullElement(measure)) {
+        if (isNotNullElement(measure)) {
             final Element attributes = measure.getFirstChildElement("attributes");
-            if (isNullElement(attributes)) {
-
+            if (isNotNullElement(attributes)) {
                 final Element divisions = attributes.getFirstChildElement("divisions");
                 final Element staves = attributes.getFirstChildElement("staves");
                 final Element fifths = attributes.getFirstChildElement("key").getFirstChildElement("fifths");
@@ -177,13 +175,13 @@ public class MusicXMLParser {
                 final Element sign = attributes.getFirstChildElement("clef").getFirstChildElement("sign");
                 final Element line = attributes.getFirstChildElement("clef").getFirstChildElement("line");
 
-                if (isNullElement(divisions)
-                    && isNullElement(staves)
-                    && isNullElement(fifths)
-                    && isNullElement(beats)
-                    && isNullElement(beatType)
-                    && isNullElement(sign)
-                    && isNullElement(line))
+                if (isNotNullElement(divisions)
+                    && isNotNullElement(staves)
+                    && isNotNullElement(fifths)
+                    && isNotNullElement(beats)
+                    && isNotNullElement(beatType)
+                    && isNotNullElement(sign)
+                    && isNotNullElement(line))
                 {
                     final Attributes measureAttributes = new Attributes
                             .Builder()
@@ -198,12 +196,57 @@ public class MusicXMLParser {
                                     sign.getValue().charAt(0),
                                     Integer.parseInt(line.getValue())
                             ).build();
-
                     result.setAttributes(measureAttributes);
+
+                    final Elements notes = measure.getChildElements("note");
+                    if (notes.size() > 0) {
+                        for (Element element : notes) {
+                            result.addNote(readNote(element));
+                        }
+                    }
                 }
             }
         }
         return result;
+    }
+
+    private Note readNote(final Element note) {
+        if (isNotNullElement(note)) {
+            final Element rest = note.getFirstChildElement("rest");
+            final Element step = note.getFirstChildElement("step");
+            final Element alter = note.getFirstChildElement("alter");
+            final Element octave = note.getFirstChildElement("octave");
+            final Element duration = note.getFirstChildElement("duration");
+            final Element voice = note.getFirstChildElement("voice");
+            final Element type = note.getFirstChildElement("type");
+            final Element stem = note.getFirstChildElement("stem");
+            final Element staff = note.getFirstChildElement("staff");
+
+            if (isNotNullElement(rest)
+                && isNotNullElement(step)
+                && isNotNullElement(alter)
+                && isNotNullElement(octave)
+                && isNotNullElement(duration)
+                && isNotNullElement(voice)
+                && isNotNullElement(type)
+                && isNotNullElement(stem)
+                && isNotNullElement(staff)
+            ) {
+                return new Note
+                        .Builder()
+                        .isRest(Boolean.parseBoolean(rest.getValue()))
+                        .whichStep(step.getValue().charAt(0))
+                        .setAlter(Integer.parseInt(alter.getValue()))
+                        .whichOctave(Integer.parseInt(octave.getValue()))
+                        .setDuration(Integer.parseInt(duration.getValue()))
+                        .whichVoice(Integer.parseInt(voice.getValue()))
+                        .whatType(type.getValue())
+                        .stemDirection(stem.getValue())
+                        .whichStaff(Integer.parseInt(staff.getValue()))
+                        .build();
+            }
+        }
+        return null;
     }
 
     public MXML getMxml() {
@@ -214,7 +257,7 @@ public class MusicXMLParser {
         return mxml.getScorePartwise();
     }
 
-    private static boolean isNullElement(Element element) {
+    private static boolean isNotNullElement(Element element) {
         return element != null;
     }
 }
