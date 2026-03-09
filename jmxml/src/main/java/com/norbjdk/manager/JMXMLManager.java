@@ -34,7 +34,7 @@ public class JMXMLManager {
     }
 
     public void openFile(String path) {
-        mxmlFile = musicXMLParser.readFile(path, true);
+        mxmlFile = musicXMLParser.readFile(path, false);
     }
 
     public void saveFile() {}
@@ -49,7 +49,7 @@ public class JMXMLManager {
 
     public static void main(String [] args) {
         JMXMLManager manager = new JMXMLManager();
-        manager.openFile("C:\\Users\\Norbert\\Desktop\\Praca Dyplomowa\\template.musicxml");
+        manager.openFile("/Users/norbjdk/Downloads/template3.musicxml");
 
         System.out.println(manager.getMxmlData().getScorePartwise().getWorkTitle());
         System.out.println(manager.getMxmlData().getScorePartwise().getCreator());
@@ -60,5 +60,7 @@ public class JMXMLManager {
             System.out.println(scorePart.getScoreInstrument().getInstrumentName());
             System.out.println(scorePart.getScoreInstrument().getInstrumentSound());
         });
+
+        System.out.println("Size: " + manager.getMxmlData().getScorePartwise().getParts().getFirst().getMeasures().size());
     }
 }
