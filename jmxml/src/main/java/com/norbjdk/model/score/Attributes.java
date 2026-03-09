@@ -50,6 +50,28 @@ public class Attributes {
             return this;
         }
 
+        public Builder setFifths(int fifths) {
+            this.fifths = fifths;
+            return this;
+        }
+
+        public Builder whatTime(int beats, int beatType) {
+            this.beats = beats;
+            this.beatType = beatType;
+            return this;
+        }
+
+        public Builder setStaves(int staves) {
+            this.staves = staves;
+            return this;
+        }
+
+        public Builder whatClef(char sign, int line) {
+            this.sign = sign;
+            this.line = line;
+            return this;
+        }
+
         public Attributes build() {
             return new Attributes(this);
         }
