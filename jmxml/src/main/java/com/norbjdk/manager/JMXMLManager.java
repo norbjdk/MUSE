@@ -53,5 +53,12 @@ public class JMXMLManager {
 
         System.out.println(manager.getMxmlData().getScorePartwise().getWorkTitle());
         System.out.println(manager.getMxmlData().getScorePartwise().getCreator());
+
+        manager.getMxmlData().getScorePartwise().getPartList().getScoreParts().forEach(scorePart -> {
+            System.out.println(scorePart.getPartName());
+            System.out.println(scorePart.getPartAbbreviation());
+            System.out.println(scorePart.getScoreInstrument().getInstrumentName());
+            System.out.println(scorePart.getScoreInstrument().getInstrumentSound());
+        });
     }
 }
