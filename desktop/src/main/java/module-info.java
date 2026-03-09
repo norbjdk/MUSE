@@ -6,6 +6,7 @@ module com.muse.desktop {
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
+    requires jmxml;
 
     opens com.muse.desktop to javafx.fxml;
     exports com.muse.desktop;
