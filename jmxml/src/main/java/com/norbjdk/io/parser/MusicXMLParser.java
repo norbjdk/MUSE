@@ -1,13 +1,11 @@
 package com.norbjdk.io.parser;
 
 import com.norbjdk.model.common.MXML;
-import com.norbjdk.model.score.PartList;
-import com.norbjdk.model.score.ScoreInstrument;
-import com.norbjdk.model.score.ScorePart;
-import com.norbjdk.model.score.ScorePartwise;
+import com.norbjdk.model.score.*;
 import nu.xom.*;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class MusicXMLParser {
     private final Builder builder;
@@ -47,6 +45,7 @@ public class MusicXMLParser {
 
         readMetaData(getScorePartwise());
         readPartList(getScorePartwise());
+        readParts(getScorePartwise());
 
         return mxmlFile;
     }
@@ -135,6 +134,76 @@ public class MusicXMLParser {
         } catch (ParsingException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void readParts(final ScorePartwise scorePartwise) {
+        if (scorePartwise.getParts() == null) {
+            scorePartwise.setParts(new ArrayList<>());
+        }
+
+        try {
+            final Document document = builder.build(mxmlFile);
+            final Element root = document.getRootElement();
+
+            final Elements parts = root.getChildElements("part");
+            if (parts.size() <= 0) return;
+            for (Element element : parts) {
+                final Part part = new Part();
+                final Elements measures = element.getChildElements("measure");
+                for (Element measure: measures) {
+                    part.getMeasures().add(readMeasure(measure));
+                }
+                scorePartwise.getParts().add(part);
+            }
+
+        } catch (ParsingException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Measure readMeasure(final Element part) {
+        final Measure result = new Measure();
+
+        final Element measure = part.getFirstChildElement("measure");
+        if (isNullElement(measure)) {
+            final Element attributes = measure.getFirstChildElement("attributes");
+            if (isNullElement(attributes)) {
+
+                final Element divisions = attributes.getFirstChildElement("divisions");
+                final Element staves = attributes.getFirstChildElement("staves");
+                final Element fifths = attributes.getFirstChildElement("key").getFirstChildElement("fifths");
+                final Element beats = attributes.getFirstChildElement("time").getFirstChildElement("beats");
+                final Element beatType = attributes.getFirstChildElement("time").getFirstChildElement("beat-type");
+                final Element sign = attributes.getFirstChildElement("clef").getFirstChildElement("sign");
+                final Element line = attributes.getFirstChildElement("clef").getFirstChildElement("line");
+
+                if (isNullElement(divisions)
+                    && isNullElement(staves)
+                    && isNullElement(fifths)
+                    && isNullElement(beats)
+                    && isNullElement(beatType)
+                    && isNullElement(sign)
+                    && isNullElement(line))
+                {
+                    final Attributes measureAttributes = new Attributes
+                            .Builder()
+                            .setDivisions(Integer.parseInt(divisions.getValue()))
+                            .setFifths(Integer.parseInt(fifths.getValue()))
+                            .whatTime(
+                                    Integer.parseInt(beats.getValue()),
+                                    Integer.parseInt(beatType.getValue())
+                            )
+                            .setStaves(Integer.parseInt(staves.getValue()))
+                            .whatClef(
+                                    sign.getValue().charAt(0),
+                                    Integer.parseInt(line.getValue())
+                            ).build();
+
+                    result.setAttributes(measureAttributes);
+                }
+            }
+        }
+        return result;
     }
 
     public MXML getMxml() {
