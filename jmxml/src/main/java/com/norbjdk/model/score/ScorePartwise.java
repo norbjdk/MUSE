@@ -1,9 +1,13 @@
 package com.norbjdk.model.score;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ScorePartwise {
     private String workTitle;
     private String creator;
     private PartList partList;
+    private List<Part> parts = new ArrayList<>();
 
     public ScorePartwise() {}
 
@@ -29,5 +33,13 @@ public class ScorePartwise {
 
     public void setPartList(PartList partList) {
         this.partList = partList;
+    }
+
+    public List<Part> getParts() {
+        return parts;
+    }
+
+    public void setParts(List<Part> parts) {
+        this.parts = parts;
     }
 }
