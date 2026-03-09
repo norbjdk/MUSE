@@ -3,4 +3,5 @@ module jmxml {
     requires java.xml;
 
     exports com.norbjdk.core;
+    exports com.norbjdk.model.score;
 }
