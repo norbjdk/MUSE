@@ -1,7 +1,11 @@
 package com.muse.desktop.component;
 
+import com.muse.desktop.component.dialog.AlertDialog;
+import com.muse.desktop.manager.AppManager;
+import com.muse.desktop.model.dto.internal.OpenProjectRequest;
 import com.muse.desktop.model.dto.internal.ViewRequest;
 import com.muse.desktop.model.event.ChangeViewRequestedEvent;
+import com.muse.desktop.model.event.OpenProjectRequestedEvent;
 import com.muse.desktop.model.ui.Presentable;
 import com.muse.desktop.model.ui.ViewName;
 import com.muse.desktop.service.EventBus;
@@ -16,14 +20,16 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
 import javax.swing.text.View;
+import java.io.File;
 import java.util.Objects;
 
 public class NavBar extends HBox implements Presentable {
-
+    private AppManager appManager;
     private Button homeBtn;
     private Button createProjectBtn;
     private Button openProjectBtn;
@@ -34,7 +40,6 @@ public class NavBar extends HBox implements Presentable {
 
     public NavBar() {
         present();
-        System.out.println("[MUSE] Initialized NavBar");
     }
 
     @Override
@@ -88,6 +93,8 @@ public class NavBar extends HBox implements Presentable {
         createProjectBtn.setOnAction(actionEvent -> handleNewProjectButtonClicked());
         collectionBtn.setOnAction(actionEvent -> handleCollectionButtonClicked());
         settingsBtn.setOnAction(actionEvent -> handleSettingsButtonClicked());
+        openProjectBtn.setOnAction(actionEvent -> handleOpenProjectButtonClicked());
+        learnBtn.setOnAction(actionEvent -> handleLearnButtonClicked());
     }
 
     private Region createSpacer() {
@@ -111,5 +118,21 @@ public class NavBar extends HBox implements Presentable {
 
     private void handleNewProjectButtonClicked() {
         EventBus.getInstance().publish(new ChangeViewRequestedEvent(new ViewRequest(ViewName.NEW_PROJECT)));
+    }
+
+    private void handleOpenProjectButtonClicked() {
+        final FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("MusicXML Files", "*.musicxml"));
+        fileChooser.setTitle("Open MusicXML project");
+
+        final File selectedFile = fileChooser.showOpenDialog(this.getScene().getWindow());
+        if (selectedFile != null) {
+            EventBus.getInstance().publish(new OpenProjectRequestedEvent(new OpenProjectRequest(selectedFile)));
+        }
+    }
+
+    private void handleLearnButtonClicked() {
+        final AlertDialog alert = new AlertDialog("Learning yet to be implemented...");
+        alert.showAndWait();
     }
 }
