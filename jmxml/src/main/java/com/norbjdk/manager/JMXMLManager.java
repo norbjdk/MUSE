@@ -27,7 +27,7 @@ public class JMXMLManager {
 
     private JMXMLManager() {
         mxmlData = new MXML();
-        dataBindingUtil = new DataBindingUtil();
+        dataBindingUtil = new DataBindingUtil(this);
         musicXMLParser = new MusicXMLParser(mxmlData);
 
         eventBus = EventBus.getInstance();

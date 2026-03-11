@@ -9,8 +9,8 @@ import java.util.function.Consumer;
 public class DataBindingUtil {
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final JMXMLManager jmxmlManager;
-    public DataBindingUtil() {
-        jmxmlManager = JMXMLManager.getInstance();
+    public DataBindingUtil(JMXMLManager jmxmlManager) {
+        this.jmxmlManager = jmxmlManager;
     }
 
     public void bindInternetConnectionAvailability(Consumer<Boolean> onSuccess, Consumer<Exception> onError) {
