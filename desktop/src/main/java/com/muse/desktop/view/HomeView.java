@@ -43,13 +43,13 @@ public class HomeView extends ScrollPane implements Presentable, ViewContainer {
 
         // Hero Section
         final StackPane heroImageContainer = new StackPane();
-        final Image heroImage = new Image(Objects.requireNonNull(getClass().getResource("/com/muse/desktop/assets/hero.jpg")).toExternalForm());
+        final Image heroImage = new Image(Objects.requireNonNull(getClass().getResource("/com/muse/desktop/assets/logo.png")).toExternalForm());
         final Rectangle heroImageView = new Rectangle();
 
-        heroImageView.setWidth(550);
+        heroImageView.setWidth(320);
         heroImageView.setHeight(320);
         heroImageView.setArcWidth(30);
-        heroImageView.setArcHeight(20);
+        heroImageView.setArcHeight(30);
         heroImageView.setFill(new ImagePattern(heroImage));
 
         heroImageContainer.getChildren().add(heroImageView);

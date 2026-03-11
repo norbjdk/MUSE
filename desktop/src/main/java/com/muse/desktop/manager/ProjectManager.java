@@ -1,13 +1,14 @@
 package com.muse.desktop.manager;
 
+import com.muse.desktop.model.dto.internal.OpenProjectRequest;
 import com.norbjdk.core.JMXML;
 
 public class ProjectManager {
     private static ProjectManager instance;
-    private final JMXML jmxml;
+    private JMXML jmxml;
 
     private ProjectManager() {
-        jmxml = new JMXML();
+
     }
 
     public static ProjectManager getInstance() {
@@ -16,5 +17,9 @@ public class ProjectManager {
         }
 
         return instance;
+    }
+
+    public void openProject(OpenProjectRequest request) {
+        //jmxml.open(request.getFile());
     }
 }
